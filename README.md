@@ -1,6 +1,7 @@
 # Baekjoon
 백준 문제 풀이 기록
-![image](https://github.com/suzzang2/Baekjoon/assets/134358849/d7517109-1b33-4745-ac30-65016159751e)
+<br>
+![코딩](https://github.com/suzzang2/Baekjoon/assets/134358849/48361db8-93a6-4302-8904-4b529c644bc6)
 
 ---
 **현재 티어** : 실버
