@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
+
 using namespace std;
 
 bool visited[101][101];
@@ -17,7 +18,6 @@ int main() {
     cin >> N >> M;
 
     vector<vector<int>> arr(N + 1, vector<int>(M + 1));
-    vector<vector<int>> dp(N + 1, vector<int>(M + 1, 0));
 
     for (int i = 1; i <= N; i++) {
         string line;
@@ -26,30 +26,36 @@ int main() {
             arr[i][j] = line[j - 1] - '0';
     }
 
-    queue<pair<int, int>> q;
-    q.push({1, 1});
+    // 큐에 depth (단계)를 같이 저장
+    queue<pair<pair<int, int>, int>> q;
+    q.push({{1, 1}, 1}); // (좌표, depth)
     visited[1][1] = true;
-    dp[1][1] = 1; // 시작점 거리 1
 
     while (!q.empty()) {
-        pair<int, int> cur = q.front();
+        auto cur = q.front();
         q.pop();
 
+        int x = cur.first.first;
+        int y = cur.first.second;
+        int depth = cur.second;
+
+        if (x == N && y == M) {
+            cout << depth << '\n'; // 도착하면 depth 출력
+            return 0;
+        }
+
         for (int i = 0; i < 4; i++) {
-            int nx = cur.first + dx[i];
-            int ny = cur.second + dy[i];
+            int nx = x + dx[i];
+            int ny = y + dy[i];
 
             if (nx >= 1 && nx <= N && ny >= 1 && ny <= M) {
                 if (!visited[nx][ny] && arr[nx][ny] == 1) {
                     visited[nx][ny] = true;
-                    dp[nx][ny] = dp[cur.first][cur.second] + 1;
-                    q.push({nx, ny});
+                    q.push({{nx, ny}, depth + 1});
                 }
             }
         }
     }
-
-    cout << dp[N][M] << '\n'; // 도착 지점의 거리 출력
 
     return 0;
 }
